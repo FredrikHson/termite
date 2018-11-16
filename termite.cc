@@ -1192,8 +1192,8 @@ gboolean button_press_cb(VteTerminal *vte, GdkEventButton *event, const config_i
 #endif
         if (!match)
             return FALSE;
-
-        if (event->button == 1) {
+        const guint modifiers = event->state & gtk_accelerator_get_default_mod_mask();
+        if (event->button == 1 && modifiers == GDK_CONTROL_MASK) {
             launch_browser(info->browser, match.get());
         } else if (event->button == 3) {
             GtkClipboard *clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
